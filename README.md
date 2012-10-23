@@ -31,7 +31,6 @@ Dependency
 ----------
 There is an external dependency on the combinatoricslib:
     
-    <!-- language: lang-xml -->
     <dependency>
         <groupId>org.paukov.combinatorics</groupId>
         <artifactId>combinatoricslib</artifactId>
