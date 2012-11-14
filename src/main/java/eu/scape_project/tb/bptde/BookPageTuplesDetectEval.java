@@ -294,7 +294,7 @@ public class BookPageTuplesDetectEval {
             StringTokenizer pageSt = new StringTokenizer(line, ",");
             while (pageSt.hasMoreTokens()) {
                 String page = pageSt.nextToken();
-
+                page = page.replaceAll("\\s","");
                 Integer pageNum = Integer.parseInt(page);
                 duplList.add(pageNum);
             }

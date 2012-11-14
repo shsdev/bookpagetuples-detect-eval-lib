@@ -4,7 +4,7 @@ bookpagetuples-detect-eval-lib
 Introduction
 ------------
 
-DetectionResult evaluation against ground truth. The evaluation process first
+Detection Result evaluation against ground truth. The evaluation process first
 creates the detection result and ground truth lists. It then counts each page
 tuple from the detection result that is in the ground truth as correctly
 identified tuple (true positive). Those that are not in the ground truth are

@@ -215,4 +215,23 @@ public class BookPageTuplesDetectEvalTest {
             System.out.println();
         }
     }
+    
+    
+
+    @Test
+    public void testEvaluate() throws IOException {
+        InputStream mbSource = BookPageTuplesDetectEval.class.getResourceAsStream("matchbox_real.txt");
+        String mb = IOUtils.toString(mbSource, "UTF-8");
+        InputStream gtSource = BookPageTuplesDetectEval.class.getResourceAsStream("groundtruth_real.txt");
+        String gt = IOUtils.toString(gtSource, "UTF-8");
+        BookPageTuplesDetectEval eval = new BookPageTuplesDetectEval(mb, gt);
+        eval.evaluate();
+        System.out.println("Log: "+eval.getLog());
+        System.out.println("TP: "+eval.getTruePositives());
+        System.out.println("FN: "+eval.getFalseNegatives());
+        System.out.println("P: "+eval.getPrecision());
+        System.out.println("R: "+eval.getRecall());
+       
+    }
+    
 }
