@@ -175,7 +175,7 @@ public class BookPageTuplesDetectEval {
      * @see getExpandedTupleList
      */
     public void evaluate() {
-        ArrayList<ArrayList<Integer>> matchBoxTupleList = getDetectionResultList(detectionResult, "=>", 0, 2);
+        ArrayList<ArrayList<Integer>> matchBoxTupleList = getDetectionResultList(detectionResult, "=>", 2, 3, 4, 5);
         ArrayList<ArrayList<Integer>> gtTupleList = getGroundtruthList(groundTruth);
         for (ArrayList<Integer> matchBoxTuple : matchBoxTupleList) {
             Integer first = matchBoxTuple.get(0);

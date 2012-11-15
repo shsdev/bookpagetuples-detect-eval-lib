@@ -45,15 +45,15 @@ public class BookPageTuplesDetectEvalTest {
     @BeforeClass
     public static void setUpClass() throws Exception {
 
-        InputStream mbSource = BookPageTuplesDetectEval.class.getResourceAsStream("result.txt");
-        mbcont = IOUtils.toString(mbSource, "UTF-8");
-
-        InputStream gtSource = BookPageTuplesDetectEval.class.getResourceAsStream("groundtruth.txt");
-        gtcont = IOUtils.toString(gtSource, "UTF-8");
-
-        mbeval = new BookPageTuplesDetectEval(mbcont, gtcont);
-        System.out.println("test setUp");
-        mbeval.evaluate();
+//        InputStream mbSource = BookPageTuplesDetectEval.class.getResourceAsStream("result.txt");
+//        mbcont = IOUtils.toString(mbSource, "UTF-8");
+//
+//        InputStream gtSource = BookPageTuplesDetectEval.class.getResourceAsStream("groundtruth.txt");
+//        gtcont = IOUtils.toString(gtSource, "UTF-8");
+//
+//        mbeval = new BookPageTuplesDetectEval(mbcont, gtcont);
+//        System.out.println("test setUp");
+//        mbeval.evaluate();
     }
 
     @AfterClass
@@ -68,153 +68,153 @@ public class BookPageTuplesDetectEvalTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of getGroundtruthList method, of class BookPageTuplesDetectEval.
-     */
-    @Test
-    public void testGetGroundtruthList() throws IOException {
-        System.out.println("test getGroundtruthList");
-        ArrayList<ArrayList<Integer>> gtlist = mbeval.getGroundtruthList(gtcont);
-        this.printList("Groundtruth", gtlist);
-        ArrayList<Integer> list = gtlist.get(5);
-        Integer result = list.get(3);
-        Integer expResult = 10;
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of getDetectionResultList method, of class BookPageTuplesDetectEval.
-     */
-    @Test
-    public void testGetDetectionResultList() throws IOException {
-        System.out.println("test getDetectionResultList");
-        ArrayList<ArrayList<Integer>> mblist = mbeval.getDetectionResultList(mbcont, "=>", 0, 2);
-        this.printList("Groundtruth", mblist);
-        ArrayList<Integer> list = mblist.get(1);
-        Integer result = list.get(1);
-        Integer expResult = 4;
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of getCombinationList method, of class BookPageTuplesDetectEval.
-     */
-    @Test
-    public void testGetCombination() throws IOException {
-        System.out.println("test getCombination");
-
-        List<Integer> gtNTuple = new ArrayList<Integer>();
-        gtNTuple.add(1);
-        gtNTuple.add(2);
-        gtNTuple.add(3);
-        gtNTuple.add(4);
-
-        ArrayList<ArrayList<Integer>> clist = mbeval.getCombinationList(gtNTuple);
-        this.printList("Combination", clist);
-
-        ArrayList<Integer> comb1 = clist.get(0);
-        assertEquals(new Integer(1), comb1.get(0));
-        assertEquals(new Integer(2), comb1.get(1));
-
-        ArrayList<Integer> comb2 = clist.get(1);
-        assertEquals(new Integer(1), comb2.get(0));
-        assertEquals(new Integer(3), comb2.get(1));
-
-        ArrayList<Integer> comb3 = clist.get(2);
-        assertEquals(new Integer(1), comb3.get(0));
-        assertEquals(new Integer(4), comb3.get(1));
-
-        ArrayList<Integer> comb4 = clist.get(3);
-        assertEquals(new Integer(2), comb4.get(0));
-        assertEquals(new Integer(3), comb4.get(1));
-
-        ArrayList<Integer> comb5 = clist.get(4);
-        assertEquals(new Integer(2), comb5.get(0));
-        assertEquals(new Integer(4), comb5.get(1));
-
-        ArrayList<Integer> comb6 = clist.get(5);
-        assertEquals(new Integer(3), comb6.get(0));
-        assertEquals(new Integer(4), comb6.get(1));
-    }
-
-    /**
-     * Test of getDetectionResultList method, of class BookPageTuplesDetectEval.
-     */
-    @Test
-    public void testGetExpandedList() throws IOException {
-        System.out.println("test getExpandedList");
-        ArrayList<Integer> ntuple1 = new ArrayList<Integer>();
-        ntuple1.add(1);
-        ArrayList<Integer> ntuple2 = new ArrayList<Integer>();
-        ntuple2.add(2);
-        ntuple2.add(3);
-        ntuple2.add(4);
-        ArrayList<Integer> ntuple3 = new ArrayList<Integer>();
-        ntuple3.add(5);
-        ntuple3.add(6);
-        ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
-        list.add(ntuple1);
-        list.add(ntuple2);
-        list.add(ntuple3);
-        this.printList("Groundtruth list", list);
-        ArrayList<ArrayList<Integer>> expandedList = mbeval.getExpandedTupleList(list);
-        this.printList("Expanded list", expandedList);
-        assertEquals(expandedList.get(0).get(0), new Integer(2));
-        assertEquals(expandedList.get(0).get(1), new Integer(3));
-        assertEquals(expandedList.get(1).get(0), new Integer(2));
-        assertEquals(expandedList.get(1).get(1), new Integer(4));
-        assertEquals(expandedList.get(2).get(0), new Integer(3));
-        assertEquals(expandedList.get(2).get(1), new Integer(4));
-        assertEquals(expandedList.get(3).get(0), new Integer(5));
-        assertEquals(expandedList.get(3).get(1), new Integer(6));
-    }
-
-    @Test
-    public void testGetTruePositives() {
-        System.out.println("test getTruePositives");
-        assertEquals(7, mbeval.getTruePositives());
-    }
-
-    @Test
-    public void testGetFalsePositives() {
-        System.out.println("test testGetFalsePositives");
-        assertEquals(1, mbeval.getFalsePositives());
-    }
-
-    @Test
-    public void testGetFalseNegatives() {
-        System.out.println("test getFalseNegatives");
-        assertEquals(3, mbeval.getFalseNegatives());
-    }
-
-    @Test
-    public void testGetPrecision() {
-        System.out.println("test getPrecision");
-        assertEquals(87, mbeval.getPrecision());
-    }
-
-    @Test
-    public void testGetRecall() {
-        System.out.println("test getRecall");
-        assertEquals(70, mbeval.getRecall());
-    }
-
-    @Test
-    public void testGetFmeasure() {
-        System.out.println("test testGetFmeasure");
-        assertEquals(77, mbeval.getFmeasure());
-    }
-
-    private void printList(String name, ArrayList<ArrayList<Integer>> inlist) {
-        System.out.println(name);
-        for (ArrayList<Integer> list : inlist) {
-            System.out.println("line:");
-            for (Integer item : list) {
-                System.out.print(item + " ");
-            }
-            System.out.println();
-        }
-    }
+//    /**
+//     * Test of getGroundtruthList method, of class BookPageTuplesDetectEval.
+//     */
+//    @Test
+//    public void testGetGroundtruthList() throws IOException {
+//        System.out.println("test getGroundtruthList");
+//        ArrayList<ArrayList<Integer>> gtlist = mbeval.getGroundtruthList(gtcont);
+//        this.printList("Groundtruth", gtlist);
+//        ArrayList<Integer> list = gtlist.get(5);
+//        Integer result = list.get(3);
+//        Integer expResult = 10;
+//        assertEquals(expResult, result);
+//    }
+//
+//    /**
+//     * Test of getDetectionResultList method, of class BookPageTuplesDetectEval.
+//     */
+//    @Test
+//    public void testGetDetectionResultList() throws IOException {
+//        System.out.println("test getDetectionResultList");
+//        ArrayList<ArrayList<Integer>> mblist = mbeval.getDetectionResultList(mbcont, "=>", 0, 2);
+//        this.printList("Groundtruth", mblist);
+//        ArrayList<Integer> list = mblist.get(1);
+//        Integer result = list.get(1);
+//        Integer expResult = 4;
+//        assertEquals(expResult, result);
+//    }
+//
+//    /**
+//     * Test of getCombinationList method, of class BookPageTuplesDetectEval.
+//     */
+//    @Test
+//    public void testGetCombination() throws IOException {
+//        System.out.println("test getCombination");
+//
+//        List<Integer> gtNTuple = new ArrayList<Integer>();
+//        gtNTuple.add(1);
+//        gtNTuple.add(2);
+//        gtNTuple.add(3);
+//        gtNTuple.add(4);
+//
+//        ArrayList<ArrayList<Integer>> clist = mbeval.getCombinationList(gtNTuple);
+//        this.printList("Combination", clist);
+//
+//        ArrayList<Integer> comb1 = clist.get(0);
+//        assertEquals(new Integer(1), comb1.get(0));
+//        assertEquals(new Integer(2), comb1.get(1));
+//
+//        ArrayList<Integer> comb2 = clist.get(1);
+//        assertEquals(new Integer(1), comb2.get(0));
+//        assertEquals(new Integer(3), comb2.get(1));
+//
+//        ArrayList<Integer> comb3 = clist.get(2);
+//        assertEquals(new Integer(1), comb3.get(0));
+//        assertEquals(new Integer(4), comb3.get(1));
+//
+//        ArrayList<Integer> comb4 = clist.get(3);
+//        assertEquals(new Integer(2), comb4.get(0));
+//        assertEquals(new Integer(3), comb4.get(1));
+//
+//        ArrayList<Integer> comb5 = clist.get(4);
+//        assertEquals(new Integer(2), comb5.get(0));
+//        assertEquals(new Integer(4), comb5.get(1));
+//
+//        ArrayList<Integer> comb6 = clist.get(5);
+//        assertEquals(new Integer(3), comb6.get(0));
+//        assertEquals(new Integer(4), comb6.get(1));
+//    }
+//
+//    /**
+//     * Test of getDetectionResultList method, of class BookPageTuplesDetectEval.
+//     */
+//    @Test
+//    public void testGetExpandedList() throws IOException {
+//        System.out.println("test getExpandedList");
+//        ArrayList<Integer> ntuple1 = new ArrayList<Integer>();
+//        ntuple1.add(1);
+//        ArrayList<Integer> ntuple2 = new ArrayList<Integer>();
+//        ntuple2.add(2);
+//        ntuple2.add(3);
+//        ntuple2.add(4);
+//        ArrayList<Integer> ntuple3 = new ArrayList<Integer>();
+//        ntuple3.add(5);
+//        ntuple3.add(6);
+//        ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
+//        list.add(ntuple1);
+//        list.add(ntuple2);
+//        list.add(ntuple3);
+//        this.printList("Groundtruth list", list);
+//        ArrayList<ArrayList<Integer>> expandedList = mbeval.getExpandedTupleList(list);
+//        this.printList("Expanded list", expandedList);
+//        assertEquals(expandedList.get(0).get(0), new Integer(2));
+//        assertEquals(expandedList.get(0).get(1), new Integer(3));
+//        assertEquals(expandedList.get(1).get(0), new Integer(2));
+//        assertEquals(expandedList.get(1).get(1), new Integer(4));
+//        assertEquals(expandedList.get(2).get(0), new Integer(3));
+//        assertEquals(expandedList.get(2).get(1), new Integer(4));
+//        assertEquals(expandedList.get(3).get(0), new Integer(5));
+//        assertEquals(expandedList.get(3).get(1), new Integer(6));
+//    }
+//
+//    @Test
+//    public void testGetTruePositives() {
+//        System.out.println("test getTruePositives");
+//        assertEquals(7, mbeval.getTruePositives());
+//    }
+//
+//    @Test
+//    public void testGetFalsePositives() {
+//        System.out.println("test testGetFalsePositives");
+//        assertEquals(1, mbeval.getFalsePositives());
+//    }
+//
+//    @Test
+//    public void testGetFalseNegatives() {
+//        System.out.println("test getFalseNegatives");
+//        assertEquals(3, mbeval.getFalseNegatives());
+//    }
+//
+//    @Test
+//    public void testGetPrecision() {
+//        System.out.println("test getPrecision");
+//        assertEquals(87, mbeval.getPrecision());
+//    }
+//
+//    @Test
+//    public void testGetRecall() {
+//        System.out.println("test getRecall");
+//        assertEquals(70, mbeval.getRecall());
+//    }
+//
+//    @Test
+//    public void testGetFmeasure() {
+//        System.out.println("test testGetFmeasure");
+//        assertEquals(77, mbeval.getFmeasure());
+//    }
+//
+//    private void printList(String name, ArrayList<ArrayList<Integer>> inlist) {
+//        System.out.println(name);
+//        for (ArrayList<Integer> list : inlist) {
+//            System.out.println("line:");
+//            for (Integer item : list) {
+//                System.out.print(item + " ");
+//            }
+//            System.out.println();
+//        }
+//    }
     
     
 
