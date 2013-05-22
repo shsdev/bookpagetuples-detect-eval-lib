@@ -1,6 +1,11 @@
 bookpagetuples-detect-eval-lib
 ==============================
 
+Library for evaluating a book page tuples detection result against ground truth. 
+The result is measured in terms of precision and recall based on the number of 
+correctly identified tuples (true positives), incorrectly identified tuples 
+(false positives), and missed tuples (false negatives).
+
 Introduction
 ------------
 
